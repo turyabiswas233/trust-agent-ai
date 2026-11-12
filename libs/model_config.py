@@ -19,8 +19,9 @@ TOOLS_LIST = list(AVAILABLE_TOOLS.values())
 
 MODEL_NAME = "qwen3.5:4b"
 CUSTOM_PARAMS={
-    "temperature": 0.9,
-    "top_p": 0.75
+    "temperature": 0.95,
+    "top_k": 10,
+    "top_p": 0.98,
 }
 
 SYSTEM_PROMPT = """You are "Trust AI", a helpful local AI assistant with access to external tools for file operations, batch prompt execution, PostgreSQL databases, time checks, and plotting.

@@ -1,0 +1,8 @@
+id,language,prompt
+1,en,"What is the current date and time right now?"
+2,bn,"বাংলাদেশের তিনটি প্রধান নদীর নাম সংক্ষেপে লেখো।"
+3,en,"Connect to PostgreSQL and list all tables in the database."
+4,en,"Explain the difference between TCP and UDP in two sentences."
+5,bn,"এখন কয়টা বাজে তা চেক করে আমাকে জানাও।"
+6,en,"Read the contents of output/data/data.json and summarize what it does."
+7,bn,"কৃত্রিম বুদ্ধিমত্তা কী এবং এটি কীভাবে কাজ করে? সংক্ষেপে উত্তর দাও।"
