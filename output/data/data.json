@@ -1,0 +1,13 @@
+{
+  "users": [
+    { "id": 1, "name": "TURYA BISWAS", "age": 23, "gender": "MALE" },
+    { "id": 2, "name": "Shuvra Biswas", "age": 22, "gender": "MALE" },
+    { "id": 3, "name": "Mrinmoy Poit", "age": 23, "gender": "MALE" },
+    { "id": 5, "name": "promit", "age": 19, "gender": "MALE" },
+    { "id": 6, "name": "pritom", "age": 20, "gender": "MALE" },
+    { "id": 7, "name": "apurba halder", "age": 22, "gender": "MALE" },
+    { "id": 4, "name": "Kazi Farhana", "age": 22, "gender": "FEMALE" },
+    { "id": 8, "name": "archana biswas", "age": 46, "gender": "FEMALE" },
+    { "id": 9, "name": "pikachu", "age": 5, "gender": "MALE" }
+  ]
+}

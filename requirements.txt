@@ -1,0 +1,4 @@
+ollama
+python-dotenv
+psycopg[binary]
+edge-tts
