@@ -1,65 +1,72 @@
-
-from libs.psqldb import connect_to_postgres, query_postgres
-from tools.times import get_current_time
-from tools.files import read_file_text, save_to_file
-from tools.batch_prompt import run_csv_prompts
-
-# Map tool names to their Python functions so we can call them after the model requests them
-AVAILABLE_TOOLS = {
-    "get_current_time": get_current_time,
-    "read_file_text": read_file_text,
-    "save_to_file": save_to_file,
-    "connect_to_postgres": connect_to_postgres,
-    "query_postgres": query_postgres,
-    "run_csv_prompts": run_csv_prompts,
-}
-
-
-TOOLS_LIST = list(AVAILABLE_TOOLS.values())
+from tools.calculator import calculate
+from tools.sql_tools import execute_sql, generate_sql, get_db_schema
 
 MODEL_NAME = "qwen3.5:4b"
-CUSTOM_PARAMS={
-    "temperature": 0.95,
-    "top_k": 10,
-    "top_p": 0.98,
+CUSTOM_PARAMS = {
+    "temperature": 0.2,
+    "top_k": 20,
+    "top_p": 0.9,
+    "num_ctx": 8192,
+}
+MAX_AGENT_STEPS = 8
+MAX_TOTAL_TOKENS = 4096
+
+AVAILABLE_TOOLS = {
+    "get_db_schema": get_db_schema,
+    "generate_sql": generate_sql,
+    "execute_sql": execute_sql,
+    "calculate": calculate,
 }
 
-SYSTEM_PROMPT = """You are "Trust AI", a helpful local AI assistant with access to external tools for file operations, batch prompt execution, PostgreSQL databases, time checks, and plotting.
+TOOL_DEFINITIONS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_db_schema",
+            "description": "Get the tables and columns in the local SQLite store database.",
+            "parameters": {"type": "object", "properties": {}},
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "generate_sql",
+            "description": "Validate a proposed read-only SQLite SELECT query before execution.",
+            "parameters": {
+                "type": "object",
+                "properties": {"sql": {"type": "string"}},
+                "required": ["sql"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "execute_sql",
+            "description": "Run a read-only SQLite SELECT query and return its columns and rows.",
+            "parameters": {
+                "type": "object",
+                "properties": {"sql": {"type": "string"}},
+                "required": ["sql"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "calculate",
+            "description": "Safely evaluate an arithmetic expression.",
+            "parameters": {
+                "type": "object",
+                "properties": {"expression": {"type": "string"}},
+                "required": ["expression"],
+            },
+        },
+    },
+]
 
-### Identity:
-- Name: Trust AI
-- Role: Local AI Assistant
-- Available Tools: get_current_time, read_file_text, save_to_file, connect_to_postgres, query_postgres, draw_line, draw_dotted, run_csv_prompts
-
-### Key Guidelines:
-1. Always execute COMMIT after any data modifications (INSERT, UPDATE, DELETE) in PostgreSQL to ensure data persistence
-2. When querying databases, use parameterized queries for security and proper connection state
-3. Connect to PostgreSQL before running queries if no existing connection is established
-4. Keep responses direct and concise; summarize tool outputs clearly instead of dumping raw data
-5. Execute tools sequentially when tasks require multiple steps
-
-### Tool Selection Rules:
-- `run_csv_prompts`: Use directly when the user provides a CSV file of prompts (in English or Bangla) to execute and wants results with token costs. Pass the `file_path` directly—do NOT read the CSV with `read_file_text` first.
-- `read_file_text`: Use only for inspecting general text/code files when not running a CSV prompt batch.
-- `save_to_file`: Use when the user asks to write, export, or save content, batch results, reports, or generated code to a file.
-
-### File Saving & Default Path Rules:
-- If the user specifies an explicit or absolute file path, use that exact path.
-- If the user asks to save or write content to a new file **without** specifying a path, automatically construct the path using `./output/<category>/<filename>.<ext>`:
-  - `<category>`: Choose a concise, lowercase folder name matching the content type (e.g., `data` for JSON/CSV, `note` for Markdown/text notes, `code` for scripts, `report` for summaries/analyses, `logs` for logs).
-  - `<filename>.<ext>`: Choose a descriptive snake_case filename and appropriate file extension (e.g., `./output/data/batch_results.json`, `./output/note/meeting_summary.md`).
-- Always report the exact saved path back to the user after saving.
-
-### Data Handling Rules:
-- For database modifications: ALWAYS commit the transaction after INSERT/UPDATE/DELETE operations
-- Verify data changes by querying results after modifications to confirm success
-- Maintain proper connection state before executing queries on PostgreSQL
-- Use appropriate parameterized queries to prevent SQL injection attacks
-- Commit all transactions explicitly - never assume automatic persistence
-
-### Response Style:
-- Summarize outputs clearly instead of dumping raw data (unless the user explicitly asks for the full JSON/table)
-- Be helpful and concise in your responses
-- Provide clear confirmations for successful operations (including exact file paths created)
-- Always verify database changes with query results after modifications
-- Maintain the "Trust AI" identity throughout interactions"""
+SYSTEM_PROMPT = """You are Trust AI, a helpful assistant that answers questions about a local SQLite store database.
+Use get_db_schema to inspect the available tables when needed. Write SQL with generate_sql,
+then run it with execute_sql. Only read data; the SQL tools reject modifications. Use calculate
+for arithmetic that is easier to verify separately. Base answers on query results, state units
+when relevant, and do not invent missing data. Keep responses concise."""

@@ -1,4 +1,4 @@
-import json
+from pathlib import Path
 from time import time_ns
 
 def read_file_text(file_path):                                                                                                                                                            
@@ -21,8 +21,10 @@ if __name__ == '__main__':
 def save_to_file(context='', file_path=None):
     if file_path is None:
         file_path = f'./chat_{time_ns()}.txt'
-    
-    with open(file_path, 'w', encoding='utf-8') as file:
+
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w', encoding='utf-8') as file:
         file.write(context)
         
-    return file_path
+    return str(path)
