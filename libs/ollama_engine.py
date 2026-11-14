@@ -44,7 +44,7 @@ def run_agent_turn(
                 messages=messages,
                 stream=True,
                 tools=tools,
-                think=False,
+                think=True,
                 options=CUSTOM_PARAMS,
             )
             message, turn_tokens = print_streamed(stream)
@@ -71,6 +71,8 @@ def run_agent_turn(
 
         final_content = message.get("content") or ""
         if total_tokens >= max_tokens:
+            print(final_content)
+            print(f"Total Token Used: {total_tokens} (cap: {max_tokens})")
             return {
                 "content": final_content,
                 "tokens": total_tokens,
@@ -109,6 +111,7 @@ def run_agent_turn(
             try:
                 arguments = _tool_arguments(function.get("arguments", {}))
                 result = tools_map[fn_name](**arguments)
+                print(f"  [Tool Result] {result}")
             except Exception as error:
                 err_msg = f"Tool '{fn_name}' execution failed: {error}"
                 print(f"  [Tool Error] {err_msg}")
@@ -118,7 +121,7 @@ def run_agent_turn(
                     "status": "error",
                     "error": err_msg,
                 }
-            messages.append({"role": "tool", "content": str(result)})
+            messages.append({"role": "tool", "content": str(result), "token": 0})
 
     return {
         "content": final_content,
