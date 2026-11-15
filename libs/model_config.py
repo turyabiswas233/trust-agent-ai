@@ -3,16 +3,16 @@ from tools.sql_tools import execute_sql, generate_sql, get_db_schema
 from tools.times import get_current_time
 from tools.files import read_file_text
 
-# MODEL_NAME = "qwen3.5:4b"
-MODEL_NAME = "qwen3.5:9b"
+MODEL_NAME = "qwen3.5:4b"
+# MODEL_NAME = "qwen2.5:3b"
 CUSTOM_PARAMS = {
-    "temperature": 0.975,
-    "top_k": 12,
-    "top_p": 0.8,
-    "num_ctx": 4096,
+    "temperature": 1,
+    "top_k": 15,
+    "top_p": 0.85,
+    "num_ctx": 8192,
 }
 MAX_AGENT_STEPS = 10
-MAX_TOTAL_TOKENS = 40960
+MAX_TOTAL_TOKENS = 16384
 
 AVAILABLE_TOOLS = {
     "get_current_time": get_current_time,
@@ -90,4 +90,8 @@ SYSTEM_PROMPT = """You are Trust AI, a helpful assistant that answers questions 
 Use get_db_schema to inspect the available tables when needed. Write SQL with generate_sql,
 then run it with execute_sql. Only read data; the SQL tools reject modifications. Use calculate
 for arithmetic that is easier to verify separately. Base answers on query results, state units
-when relevant, and do not invent missing data. Keep responses concise."""
+when relevant, and do not invent missing data. Keep responses concise.
+
+IMPORTANT: NEVER give response in MARKDOWN format. if user asks to generate any code as output, simply instruct what to do but no need to give code.
+And if user asks to give any list or tables, you simple give list in numeric format list or for table, give simple row-column style text with space separated.
+"""

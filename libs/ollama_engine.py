@@ -1,8 +1,7 @@
 import json
 import time
 from typing import Any
-
-from ollama import ResponseError, chat
+from ollama import ResponseError, chat, list as olist
 
 from libs.model_config import (
     AVAILABLE_TOOLS,
@@ -13,6 +12,27 @@ from libs.model_config import (
     TOOL_DEFINITIONS,
 )
 from libs.printer import print_streamed, print_tool_call
+
+def has_model(model_name:str|None) :
+    models = olist()
+    flag = True
+    if model_name:
+        if (model_name not in (x.model for x in models.models)):
+            print("Owner model is not available right now.")
+            flag = False
+        elif (MODEL_NAME not in (x.model for x in models.models)):
+            print("Default model is not available right now.")
+            flag = False
+    elif (MODEL_NAME not in (x.model for x in models.models)):
+            print("Default model is not available right now.")
+            flag = False
+    if not flag:
+        print(f"Available models [default - {MODEL_NAME}]: ")
+        for model in models.models:
+            if model.size:
+                print(f"{model.model} - {round(model.size / (1024 ** 3), 2)} GiB")
+    return flag
+    
 
 
 def _tool_arguments(value: Any) -> dict[str, Any]:
@@ -35,6 +55,7 @@ def run_agent_turn(
     show_tool_response: bool = False,
     options: dict[str, Any] | None = None,
     keep_alive: int | str | None = None,
+    voice_enabled: bool  =False
 ) -> dict[str, Any]:
     """Run a bounded Ollama tool loop and return content, usage, status, and errors."""
     tools_map = allowed_tools if allowed_tools is not None else AVAILABLE_TOOLS
@@ -78,7 +99,8 @@ def run_agent_turn(
             stream = chat(
                 **chat_options,
             )
-            message, turn_tokens = print_streamed(stream, show_output=show_output)
+            message, turn_tokens = print_streamed(stream, show_output=show_output, voice_enabled=voice_enabled)
+
             total_tokens += turn_tokens
             total_input_tokens += message["prompt_tokens"]
             total_output_tokens += message["output_tokens"]
