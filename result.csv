@@ -1,8 +1,0 @@
-id,category,language,model,prompt,output,input_tokens,output_tokens,cost_usd,latency_s,truncated,status,error
-1,questions,en,qwen2.5:3b,What is the capital of Nepal?,The capital of Nepal is Kathmandu.,479,10,0.000077850000,1.614094,False,success,
-1,questions,bn,qwen2.5:3b,নেপালের রাজধানী কী?,Nepal's capital city is Kathmandu.,493,12,0.000081150000,1.141816,False,success,
-2,questions,en,qwen2.5:3b,How many days are there in a leap year?,A leap year has 366 days.,482,11,0.000078900000,1.149908,False,success,
-2,questions,bn,qwen2.5:3b,অধিবর্ষে কত দিন থাকে?,"The academic year typically consists of 180 days. However, this can vary depending on the specific school or educational institution. Would you like to know more about a particular academic year?",493,39,0.000097350000,1.594071,False,success,
-3,questions,en,qwen2.5:3b,Which planet is known as the Red Planet?,None of the provided functions can answer the question about which planet is known as the Red Planet.,481,20,0.000084150000,1.303411,False,success,
-3,questions,bn,qwen2.5:3b,কোন গ্রহটি লাল গ্রহ নামে পরিচিত?,I don't have any specific information about celestial bodies colored in different colors. The question seems to be mixing concepts from astronomy and color theory. Could you please clarify or ask about a different topic?,505,40,0.000099750000,1.624924,False,success,
-4,questions,en,qwen2.5:3b,At what temperature does water freeze in Celsius?,Water freezes at 0 degrees Celsius. This is a fundamental property of water that does not change based on the context or environment.,481,27,0.000088350000,1.419973,False,success,

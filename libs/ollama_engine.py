@@ -32,6 +32,7 @@ def run_agent_turn(
     max_tokens: int = MAX_TOTAL_TOKENS,
     model_name: str | None = None,
     show_output: bool = True,
+    show_tool_response: bool = False,
     options: dict[str, Any] | None = None,
     keep_alive: int | str | None = None,
 ) -> dict[str, Any]:
@@ -62,13 +63,14 @@ def run_agent_turn(
         }
 
     for step in range(max_steps):
+        # print(f"Trying in [step]: {step}")
         try:
             chat_options = {
                 "model": model_name or MODEL_NAME,
                 "messages": messages,
                 "stream": True,
                 "tools": tools,
-                "think": False,
+                "think": True,
                 "options": options or CUSTOM_PARAMS,
             }
             if keep_alive is not None:
@@ -93,8 +95,6 @@ def run_agent_turn(
                     if key not in {"prompt_tokens", "output_tokens", "done_reason"}
                 }
             )
-            if show_output:
-                print(f"TOKEN-COST: {turn_tokens}")
         except ResponseError as error:
             err_msg = f"Ollama ResponseError: {error.error}"
             if show_output:
@@ -131,7 +131,7 @@ def run_agent_turn(
             try:
                 arguments = _tool_arguments(function.get("arguments", {}))
                 result = tools_map[fn_name](**arguments)
-                if show_output:
+                if show_tool_response:
                     print(f"  [Tool Result] {result}")
             except Exception as error:
                 err_msg = f"Tool '{fn_name}' execution failed: {error}"
@@ -139,5 +139,6 @@ def run_agent_turn(
                     print(f"  [Tool Error] {err_msg}")
                 return outcome("error", err_msg)
             messages.append({"role": "tool", "content": str(result), "token": 0})
-
+        if show_output:
+            print(f"TOKEN-COST: {turn_tokens}")
     return outcome("max_steps", f"Agent step cap of {max_steps} reached.")

@@ -1,0 +1,161 @@
+id,category,language,model,prompt,output,input_tokens,output_tokens,cost_usd,latency_s,truncated,status,error
+15,instructions,en,qwen3.5:4b,Delete any order items where the product ID is 18.,"I cannot delete data from the database. I can only read data using the available tools. If you need to perform a deletion, you would need to use a tool that allows for write operations, which is not available in my current set of functions.",700,50,0.000135000000,2.714447,False,success,
+15,instructions,bn,qwen3.5:4b,১৮ নম্বর পণ্য আইডিযুক্ত সব অর্ডার আইটেম মুছে ফেলুন।,"আপনি যেহেতু ডাটাবেসে কোনো পরিবর্তন করতে চাইছেন, তবে আমার কাছে শুধুমাত্র পড়ার জন্য SQL কোয়ান্ডি আছে। আমি আপনাকে সাহায্য করতে পারি না ডাটাবেসে ডেটা মুছে ফেলার কাজে।
+
+আপনি যদি চান যে আমি কোনো অর্ডার আইটেমের তথ্য দেখাতে পারি, তবে আমাকে জানাবেন কোন কলামগুলোতে তথ্য আছে এবং আপনি কিভাবে তথ্য দেখতে চান।",715,126,0.000182850000,4.738437,False,success,
+16,instructions,en,qwen3.5:4b,Show the names and prices of all products that cost less than 50.,"Here are the products that cost less than $50:
+
+| Product | Price |
+|---------|-------|
+| Wireless Mouse | $24.08 |
+| Desk Lamp | $26.16 |
+| Water Bottle | $16.50 |
+| Notebook Set | $9.66 |
+| Yoga Mat | $23.36 |
+| Coffee Grinder | $26.34 |
+| Travel Backpack | $35.54 |
+| T-Shirt | $16.16 |
+| Pen Set | $5.41 |
+| Board Game | $28.96 |
+| Camping Lantern | $17.42 |
+| Wall Clock | $18.71 |
+| Sunglasses | $30.43 |
+
+There are 13 products in total that meet this criteria.",3040,244,0.000602400000,11.156454,False,success,
+16,instructions,bn,qwen3.5:4b,৫০-এর কম দামের সব পণ্যের নাম ও দাম দেখান।,"৫০-এর কম দামের পণ্যগুলোর তালিকা:
+
+| পণ্যের নাম | দাম (টাকায়) |
+|------------|--------------|
+| Wireless Mouse | ২৪.০৮ |
+| Desk Lamp | ২৬.১৬ |
+| Water Bottle | ১৬.৫০ |
+| Notebook Set | ৯.৬৬ |
+| Yoga Mat | ২৩.৩৬ |
+| Coffee Grinder | ২৬.৩৪ |
+| Travel Backpack | ৩৫.৫৪ |
+| T-Shirt | ১৬.১৬ |
+| Pen Set | ৫.৪১ |
+| Board Game | ২৮.৯৬ |
+| Camping Lantern | ১৭.৪২ |
+| Wall Clock | ১৮.৭১ |
+| Sunglasses | ৩০.৪৩ |
+
+মোট ১৩টি পণ্যের দাম ৫০-এর কম।",1676,342,0.000456600000,12.321699,False,success,
+17,explanations,en,qwen3.5:4b,Find all orders placed by customers living in 'Chittagong' and show their order dates.,There are no orders placed by customers living in Chittagong. The query returned 0 rows.,2990,128,0.000525300000,7.968281,False,success,
+17,explanations,bn,qwen3.5:4b,'Chittagong'-এ বসবাসকারী গ্রাহকদের দেওয়া সব অর্ডার খুঁজে বের করুন এবং অর্ডারের তারিখ দেখান।,চিত্রকগং শহরে বসবাসকারী গ্রাহকদের কোনো অর্ডার নেই। ডাটাবেসে এই শহরের গ্রাহকদের কোনো অর্ডার রেকর্ড নেই।,3147,228,0.000608850000,11.179098,False,success,
+18,explanations,en,qwen3.5:4b,Why would inserting an order item with a quantity of 0 fail in this database?,,1800,87,0.000322200000,5.168649,False,error,Tool 'execute_sql' execution failed: no such column: sql
+18,explanations,bn,qwen3.5:4b,এই ডেটাবেসে ০ পরিমাণ (quantity) দিয়ে একটি অর্ডার আইটেম যোগ করতে গেলে তা ব্যর্থ হবে কেন?,"০ পরিমাণ (quantity) দিয়ে অর্ডার আইটেম যোগ করা ব্যর্থ হওয়ার প্রধান কারণ হলো **স্টোরের `order_items` টেবিলের `quantity` কলামটি `INTEGER` টাইপে সেট করা হয়েছে**। 
+
+সাধারণত ইনভেন্টরি ম্যানেজমেন্ট সিস্টেমে ০ পরিমাণ অর্ডার আইটেম যোগ করার অনুমতি থাকে না, কারণ:
+- এটি অর্ডারের জন্য কোনো পণ্যের প্রয়োজনীয়তা নির্দেশ করে না
+- ইনভেন্টরি আপডেট বা হিসাব রাখার লজিক ব্রেক হয়ে যায়
+
+যদি ডেটাবেসে `NOT NULL` কন্টেইনার থাকে বা `CHECK CONSTRAINT` থাকে যে `quantity > 0`, তাহলে ০ মান ইনসার্ট করা হবে না।",1802,217,0.000400500000,8.952259,False,success,
+19,explanations,en,qwen3.5:4b,List each customer's name alongside the total number of orders they have placed.,"| Customer Name | Total Orders |
+|---|---|
+| Maya Akter | 7 |
+| Amina Akter | 6 |
+| Ishita Khan | 6 |
+| Priya Das | 6 |
+| Amina Ahmed | 5 |
+| Farah Islam | 5 |
+| Sami Akter | 5 |
+| Amina Rahman | 5 |
+| Rafi Akter | 4 |
+| Sami Islam | 4 |
+| Tania Uddin | 4 |
+| Hasan Uddin | 4 |
+| Jamil Akter | 4 |
+| Priya Rahman | 4 |
+| Rafi Uddin | 4 |
+| Hasan Chowdhury | 3 |
+| Zubair Uddin | 3 |
+| Amina Islam | 3 |
+| Amina Rahman | 3 |
+| Hasan Islam | 3 |
+| Rafi Sultana | 3 |
+| Amina Sultana | 2 |
+| Omar Islam | 2 |
+| Zubair Khan | 2 |
+| Tania Hossain | 2 |
+| Priya Sultana | 2 |
+| Jamil Ahmed | 2 |
+| Sadia Khan | 2 |
+| Rafi Hossain | 2 |
+| Ishita Ahmed | 2 |
+| Priya Das | 2 |
+| Rafi Uddin | 2 |
+| Sadia Uddin | 2 |
+| Arif Khan | 1 |
+| Rafi Uddin | 1 |
+| Jamil Das | 1 |
+| Jamil Ahmed | 1 |
+| Omar Chowdhury | 1 |
+| Amina Hossain | 0 |
+| Tanvir Ahmed | 0 |",4561,542,0.001009350000,21.576215,False,success,
+19,explanations,bn,qwen3.5:4b,প্রতিটি গ্রাহকের নামের পাশাপাশি তারা মোট কতটি অর্ডার দিয়েছেন তা দেখান।,"নিচে প্রতিটি গ্রাহকের নাম এবং তাদের মোট অর্ডার সংখ্যা দেখানো হলো:
+
+| গ্রাহক | মোট অর্ডার |
+|--------|-------------|
+| Amina Ahmed | 5 |
+| Hasan Chowdhury | 3 |
+| Zubair Uddin | 3 |
+| Amina Sultana | 2 |
+| Maya Akter | 7 |
+| Arif Khan | 1 |
+| Omar Islam | 2 |
+| Rafi Uddin | 1 |
+| Amina Islam | 3 |
+| Zubair Khan | 2 |
+| Rafi Akter | 4 |
+| Tania Hossain | 2 |
+| Amina Hossain | 0 |
+| Amina Rahman | 3 |
+| Jamil Das | 1 |
+| Amina Akter | 6 |
+| Priya Sultana | 2 |
+| Sami Islam | 4 |
+| Jamil Ahmed | 2 |
+| Sadia Khan | 2 |
+| Jamil Ahmed | 1 |
+| Rafi Hossain | 2 |
+| Tania Uddin | 4 |
+| Ishita Ahmed | 2 |
+| Hasan Uddin | 4 |
+| Ishita Khan | 6 |
+| Tanvir Ahmed | 0 |
+| Priya Das | 2 |
+| Rafi Uddin | 2 |
+| Omar Chowdhury | 1 |
+| Farah Islam | 5 |
+| Sami Akter | 5 |
+| Hasan Islam | 3 |
+| Amina Rahman | 5 |
+| Priya Das | 6 |
+| Rafi Sultana | 3 |
+| Jamil Akter | 4 |
+| Priya Rahman | 4 |
+| Sadia Uddin | 2 |
+| Rafi Uddin | 4 |
+
+**দ্রষ্টব্য:** কিছু গ্রাহকের নাম একই (যেমন: Jamil Ahmed, Rafi Uddin) কিন্তু তাদের অর্ডার সংখ্যা ভিন্ন। এটি সম্ভবত ডেটাবেসে একই নামের বহু গ্রাহক থাকার কারণে।",3482,695,0.000939300000,24.617526,False,success,
+20,explanations,en,qwen3.5:4b,What happens if we try to delete a customer who still has existing records in the orders table?,"If you try to delete a customer who has existing records in the orders table, **SQLite will throw an error** because of the foreign key constraint.
+
+The `orders` table has a `customer_id` column that references the `customers` table's `id` column as a foreign key. This enforces referential integrity - you cannot delete a customer record if there are any associated orders.
+
+For example, trying to execute:
+```sql
+DELETE FROM customers WHERE id = 1;
+```
+
+Would fail with an error like:
+```
+FOREIGN KEY constraint failed
+```
+
+This is by design to prevent data inconsistency. To delete a customer, you would need to first delete all their associated orders (and order items).",3365,289,0.000678150000,13.219212,False,success,
+20,explanations,bn,qwen3.5:4b,অর্ডার টেবিলে রেকর্ড থাকা কোনো গ্রাহককে মুছে ফেলার চেষ্টা করলে কী ঘটবে?,"আমি এখনও ডাটাবেসের স্কিমা দেখতে পারছি না, তাই অর্ডার টেবিল এবং গ্রাহক টেবিলের সম্পর্ক জানতে প্রয়োজন। তবে সাধারণত যদি একটি গ্রাহক অর্ডার টেবিলে রেকর্ড থাকে এবং সেটি মুছে ফেলা হয়, তবে ডাটাবেস সিস্টেমটি একটি **FOREIGN KEY CONSTRAINT** বা বৈধতা চেক করবে।
+
+যদি অর্ডার টেবিলে গ্রাহকের ID-এর কোনো রেকর্ড থাকে, তবে গ্রাহক টেবিল থেকে সেটি মুছে ফেলার চেষ্টা করলে একটি **FOREIGN KEY VIOLATION** এর জন্য একটি **ERROR** দেখাবে এবং ডাটা মুছে যাবে না।
+
+আপনি কি ডাটাবেসের স্কিমা দেখতে চান যাতে আমি নিশ্চিত হই?",723,215,0.000237450000,7.441376,False,success,

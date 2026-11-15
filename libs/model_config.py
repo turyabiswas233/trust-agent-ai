@@ -6,12 +6,12 @@ from tools.files import read_file_text
 # MODEL_NAME = "qwen3.5:4b"
 MODEL_NAME = "qwen3.5:9b"
 CUSTOM_PARAMS = {
-    "temperature": 0.85,
-    "top_k": 16,
-    "top_p": 0.9,
+    "temperature": 0.975,
+    "top_k": 12,
+    "top_p": 0.8,
     "num_ctx": 4096,
 }
-MAX_AGENT_STEPS = 8
+MAX_AGENT_STEPS = 10
 MAX_TOTAL_TOKENS = 40960
 
 AVAILABLE_TOOLS = {

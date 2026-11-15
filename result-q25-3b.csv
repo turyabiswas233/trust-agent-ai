@@ -1,0 +1,30 @@
+id,category,language,model,prompt,output,input_tokens,output_tokens,cost_usd,latency_s,truncated,status,error
+1,questions,en,qwen2.5:3b,How many customers are registered in total?,There are a total of 40 customers registered.,1033,41,0.000179550000,2.961331,False,success,
+1,questions,bn,qwen2.5:3b,মোট কতজন গ্রাহক নিবন্ধিত আছেন?,মোট 40 গ্রাহক নিবন্ধিত আছেন।,1073,54,0.000193350000,2.893313,False,success,
+2,questions,en,qwen2.5:3b,Which cities do our customers live in?,"The SQL query executed successfully. Here are the distinct cities our customers live in:
+
+- [City Name 1]
+- [City Name 2]
+- [City Name 3]
+
+Please note that the actual city names are not provided here as they are placeholders.",1007,79,0.000198450000,3.296350,False,success,
+2,questions,bn,qwen2.5:3b,আমাদের গ্রাহকরা কোন কোন শহরে বাস করেন?,"আমি দেখেছি আমাদের ডেটা বইছেন একটি নামের জন্য ও একটি শহরের জন্য। আমাদের ডেটা বইটি আমাদের গ্রাহকদের নাম এবং শহরের নাম সংযুক্ত করে রাখে। আমাদের ডেটা বইটি আমাদের সবচেয়ে বেশি সাবেকস হিসেবে ব্যবহার করা হয়েছে। আমি আমাদের গ্রাহকদের শহরের নাম জানতে পারি না, কিন্তু আমি তাদের নাম জানি। আমাদের ডেটা বইটি আমাদের সবচেয়ে বেশি সাবেকস হিসেবে ব্যবহার করা হয়েছে।
+আমাদের ডেটা বইটি আমাদের সবচেয়ে বেশি সাবেকস হিসেবে ব্যবহার করা হয়েছে।",1384,447,0.000475800000,9.718545,False,success,
+3,questions,en,qwen2.5:3b,What is the price of the most expensive product?,The price of the most expensive product is $146.99.,1038,43,0.000181500000,2.714128,False,success,
+3,questions,bn,qwen2.5:3b,সবচেয়ে দামি পণ্যটির দাম কত?,"I see you're asking about the price of the most expensive item. However, I need to know which database or table contains the item prices to answer this question. Could you please specify which table or database this information is stored in?",501,48,0.000103950000,1.790526,False,success,
+4,questions,en,qwen2.5:3b,How many orders currently have the status 'pending'?,There are currently 0 orders with the status 'pending'.,1039,46,0.000183450000,2.761749,False,success,
+4,questions,bn,qwen2.5:3b,বর্তমানে কতটি অর্ডারের স্ট্যাটাস 'pending' আছে?,There are currently 0 orders with the status 'pending'.,1722,101,0.000318900000,4.930942,False,success,
+5,questions,en,qwen2.5:3b,Which products belong to the 'Electronics' category?,"To fetch the products belonging to the 'Electronics' category, I executed the following SQL query:
+
+```sql
+SELECT ProductName FROM Products WHERE CategoryName = 'Electronics'
+```
+
+Here are the products in the 'Electronics' category:
+
+",1027,113,0.000221850000,4.007256,False,error,Tool 'execute_sql' execution failed: no such column: ProductName
+5,questions,bn,qwen2.5:3b,'Electronics' ক্যাটাগরিতে কোন কোন পণ্য রয়েছে?,,1089,50,0.000193350000,2.929121,False,error,Tool 'execute_sql' execution failed: execute_sql() missing 1 required positional argument: 'sql'
+6,questions,en,qwen2.5:3b,When did customer with ID 10 sign up?,,1026,98,0.000212700000,3.661861,False,error,Tool 'execute_sql' execution failed: no such column: customer_id
+6,questions,bn,qwen2.5:3b,১০ নম্বর আইডির গ্রাহক কবে সাইন আপ করেছিলেন?,"The query you're asking for involves reading data from a database table, specifically looking for the signup date of the 10th customer ID. However, I don't have the actual schema of the database or the specific table/column names you're referring to. To accurately answer your question, I would need to know the name of the table and column that stores customer IDs and their signup dates.
+
+Could you please provide me with the name of the table and column that contains the customer ID and signup date?",517,102,0.000138750000,2.739249,False,success,

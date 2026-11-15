@@ -56,7 +56,7 @@ def main() -> None:
 
         conversation.append({"role": "user", "content": input_text})
         print("(AI)>> ", end="")
-        outcome = run_agent_turn(conversation, model_name=args.model)
+        outcome = run_agent_turn(conversation, model_name=args.model, max_steps=5)
         if outcome["status"] != "success": 
             print(f"[{outcome['status']}] {outcome['error']}")
 
