@@ -44,12 +44,14 @@ def run_agent_turn(
                 messages=messages,
                 stream=True,
                 tools=tools,
-                think=True,
+                think=False,
                 options=CUSTOM_PARAMS,
             )
             message, turn_tokens = print_streamed(stream)
+            # print(message)
             total_tokens += turn_tokens
             messages.append(message)
+            print(F"TOKEN-COST: {turn_tokens}")
         except ResponseError as error:
             err_msg = f"Ollama ResponseError: {error.error}"
             print(f"\n[Error] {err_msg}")

@@ -16,7 +16,7 @@ def print_streamed(stream, delay: float = 5 / 1e3) -> tuple[dict, int]:
             tool_calls.extend(message.get("tool_calls") or [])
 
             if content:
-                writer.write(content)
+                writer.write(content) 
 
             # Ollama attaches token counts to the final chunk (done=True)
             if chunk.get("done"):

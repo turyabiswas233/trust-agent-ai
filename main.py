@@ -13,8 +13,8 @@ def main() -> None:
             continue
         if input_text.lower() in {"/q", "/quit", "bye"}:
             for ctx in conversation:
-                
-                print(f"[{ctx["role"]}] -> (token): {ctx['token']}")
+                if ctx["role"]=='assistant':
+                    print(f"(token): {ctx['token']}")
             break
 
         conversation.append({"role": "user", "content": input_text})
