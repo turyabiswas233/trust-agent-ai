@@ -1,8 +1,37 @@
 from libs.chunk_msg import MarkdownTypewriter
-from libs.voice import speak
-def print_streamed(
-    stream, show_output: bool = False, voice_enabled: bool = False
-) -> tuple[dict, int]:
+
+
+def print_response(response, show_output: bool = False) -> tuple[dict, int]:
+    """Normalize and display one non-streamed Ollama response."""
+    response_data = (
+        response.model_dump()
+        if hasattr(response, "model_dump")
+        else response
+    )
+    response_message = response_data.get("message", {})
+    prompt_tokens = response_data.get("prompt_eval_count") or 0
+    output_tokens = response_data.get("eval_count") or 0
+    tokens_used = prompt_tokens + output_tokens
+    content = response_message.get("content") or ""
+
+    if content and show_output:
+        print(content)
+
+    return (
+        {
+            "role": response_message.get("role") or "assistant",
+            "content": content,
+            "tool_calls": response_message.get("tool_calls") or [],
+            "token": tokens_used,
+            "prompt_tokens": prompt_tokens,
+            "output_tokens": output_tokens,
+            "done_reason": response_data.get("done_reason") or "",
+        },
+        tokens_used,
+    )
+
+
+def print_streamed(stream, show_output: bool = False) -> tuple[dict, int]:
     """Consumes an Ollama stream, prints tokens live with smooth typing and Rich Markdown, and returns (message_dict, token_count)."""
     final_text = ""
     tool_calls = []
@@ -21,10 +50,6 @@ def print_streamed(
 
             if content and show_output:
                 writer.write(content)
-                # try:
-                #     speak(content)
-                # except MemoryError as mem_err:
-                #     print(mem_err)
 
             # Ollama attaches token counts to the final chunk (done=True)
             if chunk.get("done"):

@@ -3,6 +3,8 @@ from tools.sql_tools import execute_sql, generate_sql, get_db_schema
 from tools.times import get_current_time
 from tools.files import read_file_text
 from tools.browser import open_url
+from tools.auto_switch_voice import auto_switch_voice
+from tools.list_voice_models import list_voice_models
 
 MODEL_NAME = "qwen3.5:4b"
 # MODEL_NAME = "qwen2.5:3b"
@@ -22,10 +24,50 @@ AVAILABLE_TOOLS = {
     "generate_sql": generate_sql,
     "execute_sql": execute_sql,
     "calculate": calculate,
-    "open_url": open_url
+    "open_url": open_url,
+    "auto-switch-voice": auto_switch_voice,
+    "list_voice_models": list_voice_models,
 }
 
 TOOL_DEFINITIONS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "auto-switch-voice",
+            "description": (
+                "Select the voice model for the language of the spoken response. "
+                "Call this before completing responses in a different language, "
+                "and whenever the user asks to change voice. Use language 'bn' "
+                "for Bengali/Bangla or 'en' for English. Optionally provide "
+                "voice_name as a listed assistant name or model ID."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "language": {
+                        "type": "string",
+                        "enum": ["bn", "en"],
+                    },
+                    "voice_name": {
+                        "type": "string",
+                        "description": "Optional listed assistant name or model ID.",
+                    },
+                },
+                "required": ["language"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "list_voice_models",
+            "description": (
+                "Show installed speech voice models, their assistant names, "
+                "languages, and the currently selected model."
+            ),
+            "parameters": {"type": "object", "properties": {}},
+        },
+    },
     {
         "type": "function",
         "function": {
@@ -104,4 +146,18 @@ when relevant, and do not invent missing data. Keep responses concise.
 
 IMPORTANT: NEVER give response in MARKDOWN format. if user asks to generate any code as output, simply instruct what to do but no need to give code.
 And if user asks to give any list or tables, you simple give list in numeric format list or for table, give simple row-column style text with space separated.
+
+When choosing a language for a spoken response, call auto-switch-voice before
+finishing: use 'bn' for Bengali/Bangla and 'en' for English. If the user asks
+for a particular voice, use list_voice_models to find the available assistant
+names and pass the requested name as voice_name. Keep their selected English
+voice unless they request another one. Use list_voice_models when they ask
+which voices are available.
 """
+
+VOICE_SUMMARY_PROMPT = """Rewrite the assistant's answer as a concise, natural spoken narration.
+Return only plain text to be spoken. Do not include Markdown, headings, bullet points,
+tables, code, URLs, or labels. Preserve the important facts and numbers without adding
+new information. Use the same language as the answer. If the answer contains code or
+technical formatting, explain its key point in ordinary spoken language instead of
+reading it aloud."""

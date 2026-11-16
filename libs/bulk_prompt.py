@@ -206,6 +206,7 @@ def run_bulk_dataset(
     result_path: str | Path = "result.csv",
     report_path: str | Path = "report.csv",
     max_output_tokens: int = 256,
+    stream: bool = False,
 ) -> tuple[Path, Path]:
     if not model_name.strip():
         raise ValueError("An Ollama model name is required.")
@@ -245,6 +246,7 @@ def run_bulk_dataset(
                 show_output=False,
                 options=options,
                 keep_alive=0,
+                stream=stream,
             )
             input_tokens = int(result.get("input_tokens", 0))
             output_tokens = int(result.get("output_tokens", 0))

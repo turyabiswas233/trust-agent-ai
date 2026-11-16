@@ -24,6 +24,12 @@ def main() -> None:
     parser.add_argument("--report", type=Path, default=Path("report.csv"))
     parser.add_argument("--max-output-tokens", type=int, default=2048)
     parser.add_argument("--voice-enabled", type=str, default="Y")
+    parser.add_argument(
+        "--stream",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Stream the model response (use --no-stream to wait for the full response).",
+    )
     args = parser.parse_args()
 
     if args.dataset:
@@ -35,6 +41,7 @@ def main() -> None:
             result_path=args.result,
             report_path=args.report,
             max_output_tokens=args.max_output_tokens,
+            stream=args.stream,
         )
         print(f"Detailed responses: {result_path}")
         print(f"Comparison report: {report_path}")
@@ -69,7 +76,13 @@ def main() -> None:
 
         conversation.append({"role": "user", "content": input_text})
         print("(AI)>> ", end="")
-        outcome = run_agent_turn(conversation, model_name=args.model, max_steps=5, voice_enabled=(args.voice_enabled == "Y"))
+        outcome = run_agent_turn(
+            conversation,
+            model_name=args.model,
+            max_steps=5,
+            voice_enabled=(args.voice_enabled == "Y"),
+            stream=args.stream,
+        )
         if outcome["status"] != "success": 
             print(f"[{outcome['status']}] {outcome['error']}")
 
