@@ -1,8 +1,7 @@
 import json
 import time
 from typing import Any
-
-from ollama import ResponseError, chat
+from ollama import ResponseError, chat, list as olist
 
 from libs.model_config import (
     AVAILABLE_TOOLS,
@@ -11,8 +10,31 @@ from libs.model_config import (
     MAX_TOTAL_TOKENS,
     MODEL_NAME,
     TOOL_DEFINITIONS,
+    VOICE_SUMMARY_PROMPT,
 )
-from libs.printer import print_streamed, print_tool_call
+from libs.printer import print_response, print_streamed, print_tool_call
+from libs.voice import speak
+
+def has_model(model_name:str|None) :
+    models = olist()
+    flag = True
+    if model_name:
+        if (model_name not in (x.model for x in models.models)):
+            print("Owner model is not available right now.")
+            flag = False
+        elif (MODEL_NAME not in (x.model for x in models.models)):
+            print("Default model is not available right now.")
+            flag = False
+    elif (MODEL_NAME not in (x.model for x in models.models)):
+            print("Default model is not available right now.")
+            flag = False
+    if not flag:
+        print(f"Available models [default - {MODEL_NAME}]: ")
+        for model in models.models:
+            if model.size:
+                print(f"{model.model} - {round(model.size / (1024 ** 3), 2)} GiB")
+    return flag
+    
 
 
 def _tool_arguments(value: Any) -> dict[str, Any]:
@@ -25,6 +47,22 @@ def _tool_arguments(value: Any) -> dict[str, Any]:
     return parsed
 
 
+def _generate_voice_summary(text: str, model_name: str| None) -> str:
+    if not model_name:
+        return "sorry. no model is provided."
+    response = chat(
+        model=model_name,
+        messages=[
+            {"role": "system", "content": VOICE_SUMMARY_PROMPT},
+            {"role": "user", "content": text},
+        ],
+        stream=False,
+        think=False,
+        options={**CUSTOM_PARAMS, "temperature": 0.3},
+    )
+    return (response.message.content or "").strip()
+
+
 def run_agent_turn(
     messages: list[dict[str, Any]],
     allowed_tools: dict[str, Any] | None = None,
@@ -35,6 +73,8 @@ def run_agent_turn(
     show_tool_response: bool = False,
     options: dict[str, Any] | None = None,
     keep_alive: int | str | None = None,
+    voice_enabled: bool = False,
+    stream: bool = True,
 ) -> dict[str, Any]:
     """Run a bounded Ollama tool loop and return content, usage, status, and errors."""
     tools_map = allowed_tools if allowed_tools is not None else AVAILABLE_TOOLS
@@ -48,6 +88,8 @@ def run_agent_turn(
     total_output_tokens = 0
     truncated = False
     final_content = ""
+    voice_summary = ""
+    voice_error: str | None = None
     started_at = time.monotonic()
 
     def outcome(status: str, error: str | None) -> dict[str, Any]:
@@ -60,7 +102,34 @@ def run_agent_turn(
             "latency_s": time.monotonic() - started_at,
             "status": status,
             "error": error,
+            "voice_summary": voice_summary,
+            "voice_error": voice_error,
         }
+
+    def speak_voice_summary() -> None:
+        nonlocal voice_summary, voice_error
+        if not voice_enabled or not final_content:
+            return
+        try:
+            voice_summary = _generate_voice_summary(
+                final_content, model_name or MODEL_NAME
+            )
+        except ResponseError as error:
+            voice_error = f"Ollama voice summary error: {error.error}"
+            if show_output:
+                print(f"\n[Voice Error] {voice_error}")
+            return
+        if not voice_summary:
+            voice_error = "Ollama returned an empty voice summary."
+            if show_output:
+                print(f"\n[Voice Error] {voice_error}")
+            return
+        try:
+            speak(voice_summary)
+        except MemoryError as error:
+            voice_error = f"Voice playback failed: {error}"
+            if show_output:
+                print(f"\n[Voice Error] {voice_error}")
 
     for step in range(max_steps):
         # print(f"Trying in [step]: {step}")
@@ -68,17 +137,27 @@ def run_agent_turn(
             chat_options = {
                 "model": model_name or MODEL_NAME,
                 "messages": messages,
-                "stream": True,
+                "stream": stream,
                 "tools": tools,
-                "think": True,
+                "think": False,
                 "options": options or CUSTOM_PARAMS,
             }
             if keep_alive is not None:
                 chat_options["keep_alive"] = keep_alive
-            stream = chat(
+            response = chat(
                 **chat_options,
             )
-            message, turn_tokens = print_streamed(stream, show_output=show_output)
+            if stream:
+                message, turn_tokens = print_streamed(
+                    response,
+                    show_output=show_output,
+                )
+            else:
+                message, turn_tokens = print_response(
+                    response,
+                    show_output=show_output,
+                )
+
             total_tokens += turn_tokens
             total_input_tokens += message["prompt_tokens"]
             total_output_tokens += message["output_tokens"]
@@ -108,12 +187,14 @@ def run_agent_turn(
 
         final_content = message.get("content") or ""
         if total_tokens >= max_tokens:
+            if not message.get("tool_calls"):
+                speak_voice_summary()
             if show_output:
-                print(final_content)
                 print(f"Total Token Used: {total_tokens} (cap: {max_tokens})")
             return outcome("token_limit", f"Total token cap of {max_tokens} reached.")
         tool_calls = message.get("tool_calls") or []
         if not tool_calls:
+            speak_voice_summary()
             return outcome("success", None)
         if step + 1 >= max_steps:
             return outcome("max_steps", f"Agent step cap of {max_steps} reached.")
