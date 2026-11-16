@@ -47,7 +47,9 @@ def _tool_arguments(value: Any) -> dict[str, Any]:
     return parsed
 
 
-def _generate_voice_summary(text: str, model_name: str) -> str:
+def _generate_voice_summary(text: str, model_name: str| None) -> str:
+    if not model_name:
+        return "sorry. no model is provided."
     response = chat(
         model=model_name,
         messages=[
@@ -56,7 +58,7 @@ def _generate_voice_summary(text: str, model_name: str) -> str:
         ],
         stream=False,
         think=False,
-        options={**CUSTOM_PARAMS, "temperature": 0.3, "num_predict": 256},
+        options={**CUSTOM_PARAMS, "temperature": 0.3},
     )
     return (response.message.content or "").strip()
 
@@ -137,7 +139,7 @@ def run_agent_turn(
                 "messages": messages,
                 "stream": stream,
                 "tools": tools,
-                "think": True,
+                "think": False,
                 "options": options or CUSTOM_PARAMS,
             }
             if keep_alive is not None:

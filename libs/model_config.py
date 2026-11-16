@@ -5,9 +5,15 @@ from tools.files import read_file_text
 from tools.browser import open_url
 from tools.auto_switch_voice import auto_switch_voice
 from tools.list_voice_models import list_voice_models
+from ollama import list as olist
 
-MODEL_NAME = "qwen3.5:4b"
-# MODEL_NAME = "qwen2.5:3b"
+models = olist().models
+total_models_size = models.__len__()
+
+model_id = 0
+
+MODEL_NAME = models[model_id%total_models_size].model if models[model_id%total_models_size].model != None else "qwen2.5:3b"
+
 CUSTOM_PARAMS = {
     "temperature": 1,
     "top_k": 15,

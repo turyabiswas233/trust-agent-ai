@@ -1,6 +1,4 @@
 ollama
 python-dotenv
-psycopg[binary]
-edge-tts
-piper-tts
 rich
+piper-tts
