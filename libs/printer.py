@@ -1,10 +1,5 @@
-import re
 from libs.chunk_msg import MarkdownTypewriter
 from libs.voice import speak
-
-import sys
-from time import sleep
-
 def print_streamed(
     stream, show_output: bool = False, voice_enabled: bool = False
 ) -> tuple[dict, int]:
@@ -26,6 +21,10 @@ def print_streamed(
 
             if content and show_output:
                 writer.write(content)
+                # try:
+                #     speak(content)
+                # except MemoryError as mem_err:
+                #     print(mem_err)
 
             # Ollama attaches token counts to the final chunk (done=True)
             if chunk.get("done"):
@@ -35,13 +34,6 @@ def print_streamed(
                 prompt_tokens += prompt_count
                 output_tokens += output_count
                 tokens_used += prompt_count + output_count
-
-    if show_output:
-        if voice_enabled:
-            try:
-                speak(final_text)
-            except MemoryError as mem_err:
-                print(mem_err)
 
         print()
 

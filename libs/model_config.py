@@ -2,6 +2,7 @@ from tools.calculator import calculate
 from tools.sql_tools import execute_sql, generate_sql, get_db_schema
 from tools.times import get_current_time
 from tools.files import read_file_text
+from tools.browser import open_url
 
 MODEL_NAME = "qwen3.5:4b"
 # MODEL_NAME = "qwen2.5:3b"
@@ -21,9 +22,18 @@ AVAILABLE_TOOLS = {
     "generate_sql": generate_sql,
     "execute_sql": execute_sql,
     "calculate": calculate,
+    "open_url": open_url
 }
 
 TOOL_DEFINITIONS = [
+    {
+        "type": "function",
+        "function": {
+            "name": "open_url",
+            "description": "any kind of request where user wants to search something new from search engines like google, bing, etc or directly provides any link, use \'open_url\' tool to open the link provided by user or made by the system according to the request in a browser.",
+            "parameters": {"type": "object", "properties": {"url": {"type": "string"}}},
+        },
+    },
     {
         "type": "function",
         "function": {
