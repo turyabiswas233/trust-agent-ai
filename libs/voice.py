@@ -5,17 +5,13 @@ from functools import lru_cache
 from pathlib import Path
 
 VOICE_DIR = Path(__file__).resolve().parents[1] / "voices"
-DEFAULT_ENGLISH_VOICE = "en_US-hifi_tts_92-medium"
+DEFAULT_ENGLISH_VOICE = "en_US-kristin-medium"
 BENGALI_VOICE = "bn_BD-google-medium"
 VOICE_ASSISTANT_NAMES = {
     "bn_BD-google-medium": "Ananya",
-    "en_US-amy-medium": "Ava",
     "en_US-hifi_tts_92-medium": "Harmony",
     "en_US-kristin-medium": "Kira",
     "en_US-lessac-medium": "Luna",
-    "en_US-ljspeech-high": "Lily",
-    "en_US-mike-medium": "Miles",
-    "en_US-sam-medium": "Sage",
 }
 
 _preferred_english_voice = DEFAULT_ENGLISH_VOICE
@@ -139,10 +135,10 @@ def speak(text: str):
         )
 
     elif system == "Darwin":
-        subprocess.run(["afplay", str(output)], check=True)
+        subprocess.run(["afplay", str(output)], check=True, text=True)
 
     elif system == "Linux":
-        subprocess.run(["aplay", str(output)], check=True)
+        subprocess.run(["aplay", str(output)], check=True, text=True)
 
 
 if __name__ == "__main__":

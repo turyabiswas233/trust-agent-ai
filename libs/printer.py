@@ -1,6 +1,5 @@
 from libs.chunk_msg import MarkdownTypewriter
 
-
 def print_response(response, show_output: bool = False) -> tuple[dict, int]:
     """Normalize and display one non-streamed Ollama response."""
     response_data = (
@@ -30,26 +29,36 @@ def print_response(response, show_output: bool = False) -> tuple[dict, int]:
         tokens_used,
     )
 
-
-def print_streamed(stream, show_output: bool = False) -> tuple[dict, int]:
-    """Consumes an Ollama stream, prints tokens live with smooth typing and Rich Markdown, and returns (message_dict, token_count)."""
+def print_streamed(
+    stream, 
+    show_output: bool = False, 
+    show_thinking: bool = False
+) -> tuple[dict, int]:
+    """Consumes an Ollama stream, prints tokens live, and returns (message_dict, token_count)."""
     final_text = ""
+    thinking_text = ""
     tool_calls = []
     tokens_used = 0
     prompt_tokens = 0
     output_tokens = 0
     done_reason = ""
+    in_thinking = False
 
-    # Set delay=0 if MarkdownTypewriter iterates char-by-char internally
-    with MarkdownTypewriter(delay=0) as writer:
+    with MarkdownTypewriter() as writer:
         for chunk in stream:
             message = chunk.get("message", {})
+            thinking = message.get("thinking") or ""
             content = message.get("content") or ""
+            
+            thinking_text += thinking
             final_text += content
             tool_calls.extend(message.get("tool_calls") or [])
 
-            if content and show_output:
-                writer.write(content)
+            # 1. Track thinking start
+            if thinking and show_thinking and not in_thinking:
+                in_thinking = True
+                print("Thinking...\n")
+
 
             # Ollama attaches token counts to the final chunk (done=True)
             if chunk.get("done"):
@@ -60,11 +69,15 @@ def print_streamed(stream, show_output: bool = False) -> tuple[dict, int]:
                 output_tokens += output_count
                 tokens_used += prompt_count + output_count
 
-        print()
+        writer.write(f"**Thought** : {thinking_text}\n")
+        print("\n")
+        writer.write(f"**Answer**: {final_text}\n")
+        print("\n")
 
     return (
         {
             "role": "assistant",
+            "thinking": thinking_text,
             "content": final_text,
             "tool_calls": tool_calls,
             "token": tokens_used,
@@ -74,7 +87,6 @@ def print_streamed(stream, show_output: bool = False) -> tuple[dict, int]:
         },
         tokens_used,
     )
-
 
 
 def print_tool_call(tool_call: dict) -> None:

@@ -1,7 +1,4 @@
 id,category,english,bangla
-15,instructions,Delete any order items where the product ID is 18.,১৮ নম্বর পণ্য আইডিযুক্ত সব অর্ডার আইটেম মুছে ফেলুন।
-16,instructions,Show the names and prices of all products that cost less than 50.,৫০-এর কম দামের সব পণ্যের নাম ও দাম দেখান।
-17,explanations,Find all orders placed by customers living in 'Chittagong' and show their order dates.,'Chittagong'-এ বসবাসকারী গ্রাহকদের দেওয়া সব অর্ডার খুঁজে বের করুন এবং অর্ডারের তারিখ দেখান।
 18,explanations,Why would inserting an order item with a quantity of 0 fail in this database?,এই ডেটাবেসে ০ পরিমাণ (quantity) দিয়ে একটি অর্ডার আইটেম যোগ করতে গেলে তা ব্যর্থ হবে কেন?
 19,explanations,List each customer's name alongside the total number of orders they have placed.,প্রতিটি গ্রাহকের নামের পাশাপাশি তারা মোট কতটি অর্ডার দিয়েছেন তা দেখান।
 20,explanations,What happens if we try to delete a customer who still has existing records in the orders table?,অর্ডার টেবিলে রেকর্ড থাকা কোনো গ্রাহককে মুছে ফেলার চেষ্টা করলে কী ঘটবে?

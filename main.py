@@ -36,12 +36,12 @@ def main() -> None:
         if not args.model:
             parser.error("--model is required when --dataset is provided.")
         result_path, report_path = run_bulk_dataset(
-            args.dataset,
-            args.model,
+            dataset_path=args.dataset,
+            model_name= args.model,
             result_path=args.result,
             report_path=args.report,
             max_output_tokens=args.max_output_tokens,
-            stream=args.stream,
+            stream=False,
         )
         print(f"Detailed responses: {result_path}")
         print(f"Comparison report: {report_path}")
@@ -81,7 +81,9 @@ def main() -> None:
             model_name=args.model,
             max_steps=5,
             voice_enabled=(args.voice_enabled == "Y"),
+            keep_alive=600,
             stream=args.stream,
+            show_tool_response=False
         )
         if outcome["status"] != "success": 
             print(f"[{outcome['status']}] {outcome['error']}")

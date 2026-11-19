@@ -243,9 +243,10 @@ def run_bulk_dataset(
                 conversation,
                 max_tokens=MAX_TOTAL_TOKENS,
                 model_name=model_name,
-                show_output=False,
+                show_output=stream,
                 options=options,
                 keep_alive=0,
+                show_tool_response=True,
                 stream=stream,
             )
             input_tokens = int(result.get("input_tokens", 0))

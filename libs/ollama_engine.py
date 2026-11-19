@@ -58,7 +58,11 @@ def _generate_voice_summary(text: str, model_name: str| None) -> str:
         ],
         stream=False,
         think=False,
-        options={**CUSTOM_PARAMS, "temperature": 0.3},
+        options={
+            "temperature": 0.4,
+            "top_k": 10,
+            "top_p": 0.95
+        },
     )
     return (response.message.content or "").strip()
 
@@ -76,7 +80,6 @@ def run_agent_turn(
     voice_enabled: bool = False,
     stream: bool = True,
 ) -> dict[str, Any]:
-    """Run a bounded Ollama tool loop and return content, usage, status, and errors."""
     tools_map = allowed_tools if allowed_tools is not None else AVAILABLE_TOOLS
     tools = [
         definition
@@ -132,14 +135,13 @@ def run_agent_turn(
                 print(f"\n[Voice Error] {voice_error}")
 
     for step in range(max_steps):
-        # print(f"Trying in [step]: {step}")
         try:
             chat_options = {
                 "model": model_name or MODEL_NAME,
                 "messages": messages,
                 "stream": stream,
                 "tools": tools,
-                "think": False,
+                "think": True,
                 "options": options or CUSTOM_PARAMS,
             }
             if keep_alive is not None:
@@ -151,6 +153,7 @@ def run_agent_turn(
                 message, turn_tokens = print_streamed(
                     response,
                     show_output=show_output,
+                    show_thinking=True,
                 )
             else:
                 message, turn_tokens = print_response(

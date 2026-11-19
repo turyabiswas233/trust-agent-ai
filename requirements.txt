@@ -2,3 +2,5 @@ ollama
 python-dotenv
 rich
 piper-tts
+pandas
+matplotlib

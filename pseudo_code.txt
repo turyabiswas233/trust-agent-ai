@@ -1,0 +1,21 @@
+// Pseudo-code for CSV to JSON Converter
+
+1. Include necessary headers (iostream, fstream, vector, string, sstream)
+2. Function convertCSVtoJSON(string filename):
+    a. Open file stream for reading
+    b. If file fails to open, print error and return
+    c. Read the first line to get headers
+    d. Split headers by comma and store in a vector of strings
+    e. Initialize a string variable 'jsonOutput' with "["
+    f. Loop through each remaining line in the file:
+        i. Split the line by comma into a vector of values
+        ii. Create a JSON object string for the current row:
+           - Iterate through headers and values simultaneously
+           - Construct "key": "value" pairs
+        iii. Append the row object to 'jsonOutput' with a comma separator
+    g. Append "]" to 'jsonOutput'
+    h. Print 'jsonOutput' to the terminal
+
+3. Main function:
+    a. Get filename from command-line arguments
+    b. Call convertCSVtoJSON(filename)

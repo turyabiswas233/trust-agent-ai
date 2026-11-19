@@ -1,7 +1,7 @@
 from pathlib import Path
  
 
-def read_file_text(file_path):                                                                                                                                                            
+def read_file_text(file_path):
     """Read a file, searching the current directory tree for a bare filename."""
     path = Path(file_path)
 
@@ -19,9 +19,12 @@ def read_file_text(file_path):
         raise FileNotFoundError(f"File '{file_path}' not found")
     print(f"File found in : `{path.absolute()}`")
     return path.read_text(encoding="utf-8")
-    
-if __name__ == '__main__':
-    fp = str(input("Give a file path: "))
-    print(read_file_text(fp))
+
+def write_in_file(file_path: str, content: str = "") -> str:
+    """Write content into an existing file."""
+    path = Path(file_path).write_text(content, encoding="utf-8")
+    return f"Successfully wrote to {path}"
+
+
     
  
