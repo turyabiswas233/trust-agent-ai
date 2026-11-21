@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DomainNoticeExtraction",
+  "description": "Schema v1 for structured extraction of internet domain administration notices.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version number. Must be 1 for this version."
+    },
+    "notice_id": {
+      "type": "string",
+      "description": "Unique identifier for the notice, e.g. DN-001."
+    },
+    "domain_name": {
+      "type": "string",
+      "description": "The fully qualified domain name referenced in the notice."
+    },
+    "registrar": {
+      "type": "string",
+      "description": "The domain registrar issuing or referenced in the notice."
+    },
+    "notice_type": {
+      "type": "string",
+      "enum": [
+        "expiration_warning",
+        "renewal_notice",
+        "transfer_request",
+        "suspension_alert",
+        "whois_verification",
+        "dnssec_alert"
+      ],
+      "description": "Category of the domain notice."
+    },
+    "notice_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Date the notice was issued in ISO format YYYY-MM-DD."
+    },
+    "action_required": {
+      "type": "boolean",
+      "description": "Whether the recipient must take action."
+    },
+    "deadline": {
+      "type": ["string", "null"],
+      "description": "Action deadline in ISO format YYYY-MM-DD, or null if none."
+    },
+    "amount_due_usd": {
+      "type": ["number", "null"],
+      "description": "Fee or amount due in USD, or null if no payment required."
+    }
+  },
+  "required": [
+    "schema_version",
+    "notice_id",
+    "domain_name",
+    "registrar",
+    "notice_type",
+    "notice_date",
+    "action_required",
+    "deadline",
+    "amount_due_usd"
+  ],
+  "additionalProperties": false
+}

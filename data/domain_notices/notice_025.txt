@@ -1,0 +1,24 @@
+==========================================================
+              DOMAIN RENEWAL CONFIRMATION
+==========================================================
+
+Notice ID:  DN-025
+Date:       January 17, 2026
+
+Dear Valued Customer,
+
+This notice confirms the successful renewal of your
+domain name:
+
+    Domain:    emerald-isle-tours.org
+    Registrar: Hover
+    Amount:    $30.60 USD
+
+Your domain registration has been extended. No further
+action is required at this time.
+
+If you did not authorize this renewal, please contact
+our support team immediately.
+
+Regards,
+Hover Billing Department

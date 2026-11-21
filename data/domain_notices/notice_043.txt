@@ -1,0 +1,31 @@
+==========================================================
+                  DOMAIN EXPIRATION WARNING
+==========================================================
+
+Notice ID:    DN-043
+Date Issued:  July 15, 2026
+
+Dear Domain Owner,
+
+This is an urgent notification regarding your domain name
+registration for:
+
+    thunderpeak-mining.com
+
+Your domain is registered through Cloudflare Registrar and is
+scheduled to expire soon. If you do not renew before the
+deadline, your domain will enter a redemption grace period
+and may become available for public registration.
+
+  Expiration Deadline:  2026-08-22
+  Renewal Fee:          $23.83 USD
+
+To renew your domain, please log in to your Cloudflare Registrar
+account and complete the renewal process before the date
+listed above.
+
+If you have already renewed, please disregard this notice.
+
+Thank you,
+Cloudflare Registrar Domain Services
+support@cloudflareregistrar.com

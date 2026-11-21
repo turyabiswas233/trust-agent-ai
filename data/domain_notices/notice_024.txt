@@ -1,0 +1,14 @@
+DNS SECURITY ALERT — swiftstream-cdn.net
+
+Ref: DN-024 | June 14, 2026
+
+Registrar: Google Domains
+
+A DNSSEC validation failure has been detected for
+swiftstream-cdn.net. This impacts domain resolution security.
+
+Please update your DS/DNSKEY records by 2026-06-28.
+
+No payment required.
+
+— Google Domains Security Operations —

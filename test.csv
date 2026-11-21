@@ -1,4 +1,0 @@
-id,category,english,bangla
-18,explanations,Why would inserting an order item with a quantity of 0 fail in this database?,এই ডেটাবেসে ০ পরিমাণ (quantity) দিয়ে একটি অর্ডার আইটেম যোগ করতে গেলে তা ব্যর্থ হবে কেন?
-19,explanations,List each customer's name alongside the total number of orders they have placed.,প্রতিটি গ্রাহকের নামের পাশাপাশি তারা মোট কতটি অর্ডার দিয়েছেন তা দেখান।
-20,explanations,What happens if we try to delete a customer who still has existing records in the orders table?,অর্ডার টেবিলে রেকর্ড থাকা কোনো গ্রাহককে মুছে ফেলার চেষ্টা করলে কী ঘটবে?

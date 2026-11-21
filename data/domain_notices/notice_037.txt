@@ -1,0 +1,27 @@
+==========================================================
+           WHOIS DATA VERIFICATION REQUEST
+==========================================================
+
+Notice ID: DN-037
+Date:      January 25, 2026
+
+Dear Registrant,
+
+In accordance with ICANN policy, Name.com is required
+to verify the accuracy of your WHOIS contact information
+for the following domain:
+
+    Domain:    ironwood-furniture.com
+    Registrar: Name.com
+
+ACTION REQUIRED: Please verify your WHOIS data by
+logging into your Name.com account and confirming that
+your contact information is accurate before 2026-02-28.
+
+Failure to verify may result in suspension of your
+domain name.
+
+No payment is required for this verification.
+
+Thank you for your cooperation,
+Name.com WHOIS Compliance

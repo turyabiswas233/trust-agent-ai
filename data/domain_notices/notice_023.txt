@@ -1,0 +1,27 @@
+==========================================================
+           WHOIS DATA VERIFICATION REQUEST
+==========================================================
+
+Notice ID: DN-023
+Date:      November 11, 2026
+
+Dear Registrant,
+
+In accordance with ICANN policy, Cloudflare Registrar is required
+to verify the accuracy of your WHOIS contact information
+for the following domain:
+
+    Domain:    goldcrest-finance.com
+    Registrar: Cloudflare Registrar
+
+ACTION REQUIRED: Please verify your WHOIS data by
+logging into your Cloudflare Registrar account and confirming that
+your contact information is accurate before 2026-12-18.
+
+Failure to verify may result in suspension of your
+domain name.
+
+No payment is required for this verification.
+
+Thank you for your cooperation,
+Cloudflare Registrar WHOIS Compliance

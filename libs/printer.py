@@ -30,9 +30,8 @@ def print_response(response, show_output: bool = False) -> tuple[dict, int]:
     )
 
 def print_streamed(
-    stream, 
-    show_output: bool = False, 
-    show_thinking: bool = False
+    stream,
+    thinking: bool = False
 ) -> tuple[dict, int]:
     """Consumes an Ollama stream, prints tokens live, and returns (message_dict, token_count)."""
     final_text = ""
@@ -47,15 +46,18 @@ def print_streamed(
     with MarkdownTypewriter() as writer:
         for chunk in stream:
             message = chunk.get("message", {})
-            thinking = message.get("thinking") or ""
+            thinkings = message.get("thinking") or ""
             content = message.get("content") or ""
             
-            thinking_text += thinking
+            if content:
+                writer.write(content)
+                            
+            thinking_text += thinkings
             final_text += content
             tool_calls.extend(message.get("tool_calls") or [])
 
             # 1. Track thinking start
-            if thinking and show_thinking and not in_thinking:
+            if thinking and thinkings and not in_thinking:
                 in_thinking = True
                 print("Thinking...\n")
 
@@ -68,11 +70,7 @@ def print_streamed(
                 prompt_tokens += prompt_count
                 output_tokens += output_count
                 tokens_used += prompt_count + output_count
-
-        writer.write(f"**Thought** : {thinking_text}\n")
-        print("\n")
-        writer.write(f"**Answer**: {final_text}\n")
-        print("\n")
+            
 
     return (
         {

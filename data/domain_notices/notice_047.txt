@@ -1,0 +1,26 @@
+==========================================================
+              DOMAIN TRANSFER REQUEST NOTICE
+==========================================================
+
+Notice ID: DN-047
+Date:      November 27, 2026
+
+Dear Domain Administrator,
+
+A domain transfer request has been initiated for:
+
+    Domain:          neonpulse-music.co
+    Current Registrar: Name.com
+    Transfer Deadline: 2026-12-28
+
+    Transfer Fee:     N/A (covered by gaining registrar)
+
+ACTION REQUIRED: If you did NOT authorize this transfer,
+you must reject it through your Name.com control panel
+before 2026-12-28. If no action is taken, the transfer
+will proceed automatically.
+
+If you initiated this transfer, no further action is
+needed.
+
+Name.com Transfer Department

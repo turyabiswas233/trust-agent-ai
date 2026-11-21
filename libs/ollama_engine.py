@@ -79,6 +79,8 @@ def run_agent_turn(
     keep_alive: int | str | None = None,
     voice_enabled: bool = False,
     stream: bool = True,
+    thinking: bool = False,
+    format: str | dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     tools_map = allowed_tools if allowed_tools is not None else AVAILABLE_TOOLS
     tools = [
@@ -141,19 +143,20 @@ def run_agent_turn(
                 "messages": messages,
                 "stream": stream,
                 "tools": tools,
-                "think": True,
+                "think": thinking,
                 "options": options or CUSTOM_PARAMS,
             }
             if keep_alive is not None:
                 chat_options["keep_alive"] = keep_alive
+            if format is not None:
+                chat_options["format"] = format
             response = chat(
                 **chat_options,
             )
             if stream:
                 message, turn_tokens = print_streamed(
                     response,
-                    show_output=show_output,
-                    show_thinking=True,
+                    thinking=thinking,
                 )
             else:
                 message, turn_tokens = print_response(

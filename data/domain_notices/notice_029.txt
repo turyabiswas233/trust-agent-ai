@@ -1,0 +1,23 @@
+------------------------------------------------------
+  GANDI — DOMAIN EXPIRATION ALERT
+------------------------------------------------------
+
+Reference: DN-029
+Issued: May 1, 2026
+
+ATTENTION: The following domain is approaching its
+expiration date:
+
+  Domain:     titanforge-industries.net
+  Registrar:  Gandi
+  Expires On: 2026-06-14
+  Amount Due: $24.98
+
+ACTION REQUIRED: Please renew this domain before the
+expiration date to avoid service interruption. Failure
+to act may result in loss of your domain name.
+
+Visit your control panel at gandi.com
+to process the renewal.
+
+--- This is an automated message from Gandi. ---

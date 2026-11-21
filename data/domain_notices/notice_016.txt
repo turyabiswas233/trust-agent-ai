@@ -1,0 +1,14 @@
+DNS SECURITY ALERT — quantum-leap-tech.com
+
+Ref: DN-016 | October 18, 2026
+
+Registrar: Porkbun
+
+A DNSSEC validation failure has been detected for
+quantum-leap-tech.com. This impacts domain resolution security.
+
+Please update your DS/DNSKEY records by 2026-10-28.
+
+No payment required.
+
+— Porkbun Security Operations —

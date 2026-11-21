@@ -1,0 +1,31 @@
+==========================================================
+                  DOMAIN EXPIRATION WARNING
+==========================================================
+
+Notice ID:    DN-007
+Date Issued:  July 19, 2026
+
+Dear Domain Owner,
+
+This is an urgent notification regarding your domain name
+registration for:
+
+    blueridge-capital.com
+
+Your domain is registered through Name.com and is
+scheduled to expire soon. If you do not renew before the
+deadline, your domain will enter a redemption grace period
+and may become available for public registration.
+
+  Expiration Deadline:  2026-08-28
+  Renewal Fee:          $36.62 USD
+
+To renew your domain, please log in to your Name.com
+account and complete the renewal process before the date
+listed above.
+
+If you have already renewed, please disregard this notice.
+
+Thank you,
+Name.com Domain Services
+support@name.com.com

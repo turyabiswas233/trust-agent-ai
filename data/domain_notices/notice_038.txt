@@ -1,0 +1,14 @@
+DNS SECURITY ALERT — crystalclear-water.net
+
+Ref: DN-038 | August 28, 2026
+
+Registrar: Dynadot
+
+A DNSSEC validation failure has been detected for
+crystalclear-water.net. This impacts domain resolution security.
+
+Please update your DS/DNSKEY records by 2026-08-28.
+
+No payment required.
+
+— Dynadot Security Operations —

@@ -1,0 +1,14 @@
+DNS SECURITY ALERT — dataforge-labs.org
+
+Ref: DN-004 | October 10, 2026
+
+Registrar: Google Domains
+
+A DNSSEC validation failure has been detected for
+dataforge-labs.org. This impacts domain resolution security.
+
+Please update your DS/DNSKEY records by 2026-10-24.
+
+No payment required.
+
+— Google Domains Security Operations —

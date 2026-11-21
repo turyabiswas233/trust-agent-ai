@@ -1,0 +1,26 @@
+==========================================================
+              DNSSEC CONFIGURATION ALERT
+==========================================================
+
+Notice ID: DN-041
+Date:      May 9, 2026
+
+Dear Domain Administrator,
+
+We have detected a DNSSEC configuration issue with
+your domain:
+
+    Domain:    arcticfox-apparel.com
+    Registrar: GoDaddy
+
+The DNSSEC signing keys for your domain appear to be
+misconfigured or expired. This may cause DNS resolution
+failures for visitors attempting to reach your domain.
+
+ACTION REQUIRED: Please review and update your DNSSEC
+settings in your GoDaddy control panel before 2026-05-23.
+
+No fees are associated with this configuration update.
+
+Sincerely,
+GoDaddy DNS Security Team

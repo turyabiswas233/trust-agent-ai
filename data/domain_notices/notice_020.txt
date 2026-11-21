@@ -1,0 +1,15 @@
+=== DOMAIN SUSPENSION WARNING ===
+
+Ref: DN-020
+Registrar: OVHcloud
+Date: February 2, 2026
+
+The domain eagleeye-drones.io is at risk of suspension.
+
+An unresolved compliance issue has been detected.
+Please take corrective action before 2026-03-16 to
+maintain your domain registration.
+
+Your immediate attention is required.
+
+OVHcloud Compliance Team

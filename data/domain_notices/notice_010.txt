@@ -1,0 +1,15 @@
+=== DOMAIN SUSPENSION WARNING ===
+
+Ref: DN-010
+Registrar: OVHcloud
+Date: April 28, 2026
+
+The domain pixelcraft-design.io is at risk of suspension.
+
+An unresolved compliance issue has been detected.
+Please take corrective action before 2026-05-28 to
+maintain your domain registration.
+
+Your immediate attention is required.
+
+OVHcloud Compliance Team

@@ -1,0 +1,26 @@
+==========================================================
+              DOMAIN TRANSFER REQUEST NOTICE
+==========================================================
+
+Notice ID: DN-001
+Date:      January 1, 2026
+
+Dear Domain Administrator,
+
+A domain transfer request has been initiated for:
+
+    Domain:          brightwave-solutions.com
+    Current Registrar: GoDaddy
+    Transfer Deadline: 2026-02-06
+
+    Transfer Fee:     $11.46 USD
+
+ACTION REQUIRED: If you did NOT authorize this transfer,
+you must reject it through your GoDaddy control panel
+before 2026-02-06. If no action is taken, the transfer
+will proceed automatically.
+
+If you initiated this transfer, no further action is
+needed.
+
+GoDaddy Transfer Department

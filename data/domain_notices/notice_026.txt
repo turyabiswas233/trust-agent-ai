@@ -1,0 +1,23 @@
+------------------------------------------------------
+  PORKBUN — DOMAIN EXPIRATION ALERT
+------------------------------------------------------
+
+Reference: DN-026
+Issued: August 20, 2026
+
+ATTENTION: The following domain is approaching its
+expiration date:
+
+  Domain:     cobalt-networks.io
+  Registrar:  Porkbun
+  Expires On: 2026-09-28
+  Amount Due: $21.87
+
+ACTION REQUIRED: Please renew this domain before the
+expiration date to avoid service interruption. Failure
+to act may result in loss of your domain name.
+
+Visit your control panel at porkbun.com
+to process the renewal.
+
+--- This is an automated message from Porkbun. ---

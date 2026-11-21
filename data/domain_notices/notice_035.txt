@@ -1,0 +1,26 @@
+==========================================================
+              DNSSEC CONFIGURATION ALERT
+==========================================================
+
+Notice ID: DN-035
+Date:      November 19, 2026
+
+Dear Domain Administrator,
+
+We have detected a DNSSEC configuration issue with
+your domain:
+
+    Domain:    blazetrail-fitness.com
+    Registrar: Hover
+
+The DNSSEC signing keys for your domain appear to be
+misconfigured or expired. This may cause DNS resolution
+failures for visitors attempting to reach your domain.
+
+ACTION REQUIRED: Please review and update your DNSSEC
+settings in your Hover control panel before 2026-11-28.
+
+No fees are associated with this configuration update.
+
+Sincerely,
+Hover DNS Security Team

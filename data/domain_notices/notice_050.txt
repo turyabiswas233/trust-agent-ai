@@ -1,0 +1,15 @@
+=== DOMAIN SUSPENSION WARNING ===
+
+Ref: DN-050
+Registrar: OVHcloud
+Date: August 8, 2026
+
+The domain brickhouse-construction.net is at risk of suspension.
+
+An unresolved compliance issue has been detected.
+Please take corrective action before 2026-09-22 to
+maintain your domain registration.
+
+Your immediate attention is required.
+
+OVHcloud Compliance Team

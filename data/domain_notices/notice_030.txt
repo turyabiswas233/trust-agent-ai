@@ -1,0 +1,15 @@
+=== DOMAIN SUSPENSION WARNING ===
+
+Ref: DN-030
+Registrar: OVHcloud
+Date: December 4, 2026
+
+The domain aurora-borealis.travel is at risk of suspension.
+
+An unresolved compliance issue has been detected.
+Please take corrective action before 2027-01-18 to
+maintain your domain registration.
+
+Your immediate attention is required.
+
+OVHcloud Compliance Team

@@ -1,0 +1,23 @@
+!! URGENT — DOMAIN SUSPENSION NOTICE !!
+
+Notice ID: DN-013
+Date Issued: January 9, 2026
+
+Dear Domain Holder,
+
+Your domain alphacode-dev.io has been flagged for
+suspension due to a policy violation or unresolved
+billing issue.
+
+    Domain:    alphacode-dev.io
+    Registrar: Cloudflare Registrar
+    Deadline:  2026-02-16
+
+ACTION REQUIRED: Please resolve the outstanding issue
+by logging into your Cloudflare Registrar account before 2026-02-16.
+
+If the issue is not resolved by the deadline, your
+domain will be suspended and all associated services
+(website, email, DNS) will be interrupted.
+
+Contact Cloudflare Registrar support for assistance.
